@@ -1,0 +1,47 @@
+image:
+  repository: k8s.gcr.io/kubernetes-dashboard-amd64
+  tag: v1.10.1
+
+## Serve application over HTTP without TLS
+enableInsecureLogin: true
+
+## Additional container arguments
+##
+extraArgs:
+  - --metric-client-check-period=300
+
+service:
+  externalPort: 80
+
+ingress:
+  ## If true, Kubernetes Dashboard Ingress will be created.
+  ##
+  enabled: true
+
+  ## Kubernetes Dashboard Ingress annotations
+  ##
+  ## Add custom labels
+  # labels:
+  #   key: value
+  annotations:
+    kubernetes.io/ingress.class: nginx # CHANGE IT
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+  ## Kubernetes Dashboard Ingress paths
+  ##
+  paths:
+    - /
+
+  ## Kubernetes Dashboard Ingress hostnames
+  ## Must be provided if Ingress is enabled
+  ##
+  hosts:
+    - eks-dev-dashboard.cloudzcp.io # CHANGE IT
+
+  ## Kubernetes Dashboard Ingress TLS configuration
+  ## Secrets must be manually created in the namespace
+  ##
+  tls:
+    - secretName: cloudzcp-io-cert
+      hosts:
+        - eks-dev-dashboard.cloudzcp.io # CHANGE IT
