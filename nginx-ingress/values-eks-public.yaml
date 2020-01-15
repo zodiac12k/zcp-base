@@ -26,6 +26,9 @@ controller:
   ##
   ingressClass: nginx
 
+  publishService:
+    enabled: true
+
   replicaCount: 2
 
   service:
