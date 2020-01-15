@@ -26,6 +26,8 @@ controller:
   ##
   ingressClass: nginx
 
+  ## Allows customization of the external service
+  ## the ingress will be bound to via DNS
   publishService:
     enabled: true
 
