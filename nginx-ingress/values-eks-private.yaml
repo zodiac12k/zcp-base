@@ -23,7 +23,7 @@ controller:
 
   ## Name of the ingress class to route through this controller
   ##
-  ingressClass: nginx
+  ingressClass: private-nginx
 
   ## Allows customization of the external service
   ## the ingress will be bound to via DNS
