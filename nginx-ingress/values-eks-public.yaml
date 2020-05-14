@@ -24,7 +24,7 @@ controller:
 
   ## Name of the ingress class to route through this controller
   ##
-  ingressClass: nginx
+  ingressClass: public-nginx
 
   ## Allows customization of the external service
   ## the ingress will be bound to via DNS
@@ -32,6 +32,36 @@ controller:
     enabled: true
 
   replicaCount: 2
+
+  ## Node tolerations for server scheduling to nodes with taints
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  ##
+  tolerations:
+  - key: "dedicated"
+    value: "edge"
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: dedicated
+            operator: In
+            values:
+            - edge
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - nginx-ingress
+          - key: component
+            operator: In
+            values:
+            - controller
+        topologyKey: kubernetes.io/hostname
 
   service:
     annotations: 
