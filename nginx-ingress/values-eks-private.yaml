@@ -2,7 +2,6 @@ controller:
   name: controller
   image:
     repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
-    tag: "0.25.1"
 
   # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
   config:
@@ -72,3 +71,10 @@ controller:
     ## providers supporting it
     ## Ref: https://kubernetes.io/docs/tutorials/services/source-ip/#source-ip-for-services-with-typeloadbalancer
     externalTrafficPolicy: "Local"
+
+## Default 404 backend
+##
+defaultBackend:
+
+  image:
+    repository: k8s.gcr.io/defaultbackend-amd64
